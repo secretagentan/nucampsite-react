@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, FormGroup, Label } from 'reactstrap';
+import { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import {
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    Label,
+    FormGroup
+} from 'reactstrap';
 import { validateCommentForm } from '../../utils/validateCommentForm';
 
 const CommentForm = ({ campsiteId }) => {
@@ -12,7 +19,7 @@ const CommentForm = ({ campsiteId }) => {
             rating: values.rating,
             author: values.author,
             text: values.commentText
-        }
+        };
         console.log('comment:', comment);
         setModalOpen(false);
     };
@@ -22,18 +29,17 @@ const CommentForm = ({ campsiteId }) => {
             <Button outline onClick={() => setModalOpen(true)}>
                 <i className='fa fa-pencil fa-lg' /> Add Comment
             </Button>
-
             <Modal isOpen={modalOpen}>
                 <ModalHeader toggle={() => setModalOpen(false)}>
                     Add Comment
                 </ModalHeader>
                 <ModalBody>
-                    <Formik 
+                    <Formik
                         initialValues={{
                             rating: undefined,
                             author: '',
                             commentText: ''
-                        }} 
+                        }}
                         onSubmit={handleSubmit}
                         validate={validateCommentForm}
                     >
@@ -56,6 +62,7 @@ const CommentForm = ({ campsiteId }) => {
                                     {(msg) => <p className='text-danger'>{msg}</p>}
                                 </ErrorMessage>
                             </FormGroup>
+
                             <FormGroup>
                                 <Label htmlFor='author'>Your Name</Label>
                                 <Field
@@ -67,6 +74,7 @@ const CommentForm = ({ campsiteId }) => {
                                     {(msg) => <p className='text-danger'>{msg}</p>}
                                 </ErrorMessage>
                             </FormGroup>
+
                             <FormGroup>
                                 <Label htmlFor='commentText'>Comment</Label>
                                 <Field
@@ -76,6 +84,7 @@ const CommentForm = ({ campsiteId }) => {
                                     className='form-control'
                                 />
                             </FormGroup>
+
                             <Button type='submit' color='primary'>
                                 Submit
                             </Button>
@@ -84,7 +93,7 @@ const CommentForm = ({ campsiteId }) => {
                 </ModalBody>
             </Modal>
         </>
-    )
+    );
 };
 
 export default CommentForm;
