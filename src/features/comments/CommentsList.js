@@ -3,10 +3,28 @@ import Comment from './Comment';
 import CommentForm from './CommentForm';
 import { selectCommentsByCampsiteId } from './commentsSlice';
 import { useSelector } from 'react-redux';
+import Error from '../../components/Error';
+import Loading from '../../components/Loading';
 
 const CommentsList = ({ campsiteId }) => {
     const comments = useSelector(selectCommentsByCampsiteId(campsiteId));
-    console.log('comments:', comments);
+
+    const isLoading = useSelector((state) => state.comments.isLoading);
+    const errMsg = useSelector((state) => state.comments.errMsg);
+
+    console.log(isLoading, errMsg, comments);
+
+    if (isLoading) {
+        return (
+            <Loading />
+        );
+    }
+
+    if (errMsg) {
+        return (
+            <Error errMsg={errMsg} />
+        );
+    }
 
     if (comments && comments.length > 0) {
         return (
